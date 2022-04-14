@@ -1,5 +1,7 @@
 # Assignment-3
-Question 1: 
+Question 1:
+
+One reason why the servants could have had more presents than thank you notes is that they used a lockfreelist implementation of the linked list to solve this problem. In this implementation, if thread A is going to remove node a from the list, and thread B is about to add node b, before node b could be added, node a could be removed from the linked list causing node b to never be added. This could result in a case where there are too many presents in comparison to the number of thank you letters produced.  
 
 Summary/Proof: presents.java implements the slightly modified optimistic synchronization linked list algorithm from the "Art of Multiprocessor Programming" textbook. The premise of this algorithm is to take a chance by searching without locks, when the nodes are found, lock the nodes, and then validate that the locked nodes are correct in the linked list. Each of the 4 servants act as a thread either trying to remove or add an item to the linked list. Every servant first adds the next present to the linked list, then creates a thank you letter for that same present. After all the threads are done, and we remove the node from the linked list with a item value of 0 (we create this with our initialization of the linked list because we need to check pred and curr and we don't want to run into null pointers), we have successfully made 500,000 thank you letters.
 
